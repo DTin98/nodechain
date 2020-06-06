@@ -2,10 +2,60 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="peer-section">
+      <div>
+        <ol>
+          <button
+            style="
+              background-color: Transparent;
+              background-repeat: no-repeat;
+              border: none;
+              cursor: pointer;
+              overflow: hidden;
+            "
+          >
+            <i class="far fa-user-circle peer-icon"></i>
+          </button>
+          <h2>Peer 1</h2>
+          <div>
+            <button>Connect</button>
+            <button>View History</button>
+          </div>
+        </ol>
+      </div>
+      <button class="add-peer-btn">Add peer</button>
+    </div>
+    <div class="blockchain-section">
+      <h1>Blockchain</h1>
+      <block>
+        <div>
+          <span>DATA</span>
+          <input type="text" value="Welcome to my blockchain!" />
+        </div>
+        <span>Previous Hash: 0</span>
+        <span
+          >Hash:
+          000dc75a315c77a1f9c98fb6247d03dd18ac52632d7dc6a9920261d8109b37cf</span
+        >
+        <div>
+          <span>Genesis Block</span>
+          <span>on Tue, 17 Oct 2017 19:53:20 GMT </span>
+          <span>Nouce: 604</span>
+        </div>
+      </block>
+      <div class="add-block">
+        <div><span>DATA</span> <input type="text" value="" /></div>
+        <button style="margin-top: 20px;">+ ADD NEW BLOCK</button>
+      </div>
+    </div>
   </body>
 </html>

@@ -7,20 +7,20 @@ const blockchain = new Blockchain();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Hello World" });
+  res.render("index", { title: "Block Chain Demo" });
 });
 
-//GET blockchain
+/* GET Blockchain */
 router.get("/blocks", function (req, res, next) {
   res.json(blockchain.chain);
 });
 
-//ADD Blocks
+/* ADD Block */
 router.post("/mine", function (req, res, next) {
   const block = blockchain.addBlock(req.body.data);
   console.log(`New block added: ${block.toString()}`);
   res.redirect("/blocks");
-  p2pserver.syncChain();
+  // p2pserver.syncChain();
 });
 
 module.exports = router;
