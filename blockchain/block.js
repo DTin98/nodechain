@@ -1,4 +1,4 @@
-const SHA256 = require("crypto-js/sha256");
+const SHA256 = require("sha256");
 
 const { DIFFICULTY, MINE_RATE } = require("../config");
 
@@ -33,7 +33,7 @@ class Block {
    */
 
   static genesis() {
-    return new this("Genesis time", "----", "kilasdawis", [], 0, DIFFICULTY);
+    return new this(Date.now(), "----", SHA256("genesis"), [], 0, DIFFICULTY);
   }
 
   /**
@@ -65,9 +65,7 @@ class Block {
    */
 
   static hash(timestamp, lastHash, data, nonce, difficulty) {
-    return SHA256.hash(
-      `${timestamp}${lastHash}${data}${nonce}${difficulty}`
-    ).toString();
+    return SHA256(`${timestamp}${lastHash}${data}${nonce}${difficulty}`);
   }
 
   /**
@@ -90,6 +88,7 @@ class Block {
       lastBlock.timestamp + MINE_RATE > currentTime
         ? difficulty + 1
         : difficulty - 1;
+    if (difficulty < 0) difficulty = 0;
     return difficulty;
   }
 }

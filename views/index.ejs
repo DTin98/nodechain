@@ -12,7 +12,8 @@
   </head>
   <body>
     <div class="peer-section">
-      <div>
+      <div style='display: flex; flex-direction: row;'>
+        <% if (peer) peers.forEach((peer, peer_index) => { %>
         <ol>
           <button
             style="
@@ -23,38 +24,48 @@
               overflow: hidden;
             "
           >
-            <i class="far fa-user-circle peer-icon"></i>
+          <a href="/peer/<%=peer_index+1%>"><i class="far fa-user-circle peer-icon" style=<%= peer_index+1 == index?
+            'color:red' : 'color:black'%> ></i></a>
           </button>
-          <h2>Peer 1</h2>
+          <h2>Peer <%= peer.name %></h2>
           <div>
             <button>Connect</button>
             <button>View History</button>
           </div>
+          <a href="/peer/<%= peer_index + 1%>/delete"><i class="fas fa-trash-alt"></i></a>
         </ol>
-      </div>
-      <button class="add-peer-btn">Add peer</button>
+      <% } ); %>
+    </div>
+      <a href="/addPeer"><button class="add-peer-btn" style='height: 50px;'>Add peer</button></a>
     </div>
     <div class="blockchain-section">
       <h1>Blockchain</h1>
+      <% if (peer) peer.blockchain.chain.forEach((block, block_index) => { %>
       <block>
         <div>
           <span>DATA</span>
-          <input type="text" value="Welcome to my blockchain!" />
+          <input type="text" value="<%= block.data %>" />
         </div>
-        <span>Previous Hash: 0</span>
-        <span
-          >Hash:
-          000dc75a315c77a1f9c98fb6247d03dd18ac52632d7dc6a9920261d8109b37cf</span
-        >
+        <span>Previous Hash: <%= block.lastHash %></span>
+        <span>Hash: <%= block.hash %></span>
         <div>
-          <span>Genesis Block</span>
-          <span>on Tue, 17 Oct 2017 19:53:20 GMT </span>
-          <span>Nouce: 604</span>
+          <span style='font-size: 24px; font-weight: bold;'>#<%=block_index%></span>
+          <span style='margin-right:10px; margin-left: 10px;'}}>
+            <%=new Date(block.timestamp).getHours()%><%=":"%><%=new Date(block.timestamp).getMinutes()%><%=":"%><%=new Date(block.timestamp).getSeconds()%>
+            <%=new Date(block.timestamp).getDate()%><%="/"%><%=new Date(block.timestamp).getMonth()%><%="/"%><%=new Date(block.timestamp).getFullYear()%>
+          </span>
+          <span>Nonce: <%= block.nonce %></span>
         </div>
       </block>
+      <% } ); %>
       <div class="add-block">
-        <div><span>DATA</span> <input type="text" value="" /></div>
-        <button style="margin-top: 20px;">+ ADD NEW BLOCK</button>
+        <form id="form-add-data" action="<%=index%>/addData" method="POST">
+          <p>
+              <label for="data">Data: </label>
+              <input type="text" id="data" name="data"></input>
+          </p>
+          <input type="submit" value="Submit"></input>
+        </form>
       </div>
     </div>
   </body>

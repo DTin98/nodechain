@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Blockchain from "../../blockchain";
+import Blockchain from "../../../../blockchain";
 import Peer from "./components/Peer";
 
 export default function Index({ sendBlockchain }) {
@@ -23,9 +23,10 @@ export default function Index({ sendBlockchain }) {
     if (focusOnPeer === index) setFocusOnPeer(focusOnPeer - 1);
   };
 
-  const [peers, setPeers] = useState([{ blockchain: new Blockchain() }]);
+  const [peers, setPeers] = useState([
+    { name: 0, blockchain: new Blockchain() },
+  ]);
   const [focusOnPeer, setFocusOnPeer] = useState(0);
-
   return (
     <div
       style={{
@@ -46,6 +47,7 @@ export default function Index({ sendBlockchain }) {
                 deletePeer={deletePeer}
                 clickPeer={clickPeer}
                 isHideConnect
+                connectingPeer={peers[focusOnPeer]}
               />
             );
           } else
@@ -56,6 +58,7 @@ export default function Index({ sendBlockchain }) {
                 name={peer.name}
                 deletePeer={deletePeer}
                 clickPeer={clickPeer}
+                connectingPeer={peers[focusOnPeer]}
               />
             );
         })}

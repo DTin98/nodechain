@@ -61,8 +61,6 @@ class Block {
       timestamp = Date.now();
       difficulty = Block.adjustDifficulty(lastBlock, timestamp);
       hash = Block.hash(timestamp, lastHash, data, nonce, difficulty);
-      console.log(hash);
-      console.log(difficulty);
       // checking if we have the required no of leading number of zeros
     } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
 

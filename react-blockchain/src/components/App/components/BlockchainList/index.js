@@ -12,7 +12,7 @@ export default function BlockchainList({ blockchain }) {
 
   return (
     <div className="blockchain-section">
-      <h1>Blockchain</h1>
+      <h1 style={{ fontWeight: "bold" }}>Blockchain</h1>
       {add
         ? blockchain.chain.map((block, index) => (
             <Block block={block} index={index} />
