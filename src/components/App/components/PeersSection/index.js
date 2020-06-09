@@ -21,14 +21,14 @@ export default function Index({
 
   const renderPeer = () => {
     if (!length) return;
-    let color = "red";
+    let color = null;
     return listName.map((name, index) => {
       let hideConnect = false;
       let hideHistory = false;
       if (indexFocus === index) {
         hideConnect = true;
         hideHistory = true;
-        color = "red";
+        color = "blue";
       } else {
         color = "black";
       }

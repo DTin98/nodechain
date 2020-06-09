@@ -3,21 +3,36 @@ import "antd/dist/antd.css";
 import React, { useState } from "react";
 const { Text } = Typography;
 
-export default function Index({ block, index }) {
+export default function Index({ block, index, edit }) {
   const [data, setData] = useState(block.data);
+  const [previousHash, setPreviousHash] = useState(block.lastHash);
+  const [hash, setHash] = useState(block.hash);
   return (
     <block>
       <div>
         <Button style={{ backgroundColor: "#f5f6fa" }}>DATA</Button>
-        <Input
-          type="text"
-          value={data}
-          style={{ width: 650 }}
-          onChange={(e) => {
-            block.data = e.target.value;
-            setData(e.target.value);
-          }}
-        />
+        {edit ? (
+          <Input
+            type="text"
+            value={data}
+            style={{ width: 650, color: "black", borderColor: "red" }}
+            onChange={(e) => {
+              block.data = e.target.value;
+              setData(e.target.value);
+            }}
+          />
+        ) : (
+          <Input
+            disabled
+            type="text"
+            value={data}
+            style={{ width: 650 }}
+            onChange={(e) => {
+              block.data = e.target.value;
+              setData(e.target.value);
+            }}
+          />
+        )}
       </div>
       <div
         style={{
@@ -30,9 +45,20 @@ export default function Index({ block, index }) {
         <Text strong style={{ margin: 5 }}>
           Previous hash:
         </Text>
-        <Text style={{ color: "green", borderColor: "green" }}>
-          {block.lastHash}
-        </Text>
+        {edit ? (
+          <Input
+            style={{ color: "black", borderColor: "red" }}
+            value={previousHash}
+            onChange={(e) => {
+              block.previousHash = e.target.value;
+              setPreviousHash(e.target.value);
+            }}
+          />
+        ) : (
+          <Text style={{ color: "green", borderColor: "green" }}>
+            {block.lastHash}
+          </Text>
+        )}
       </div>
       <div
         style={{
@@ -45,9 +71,20 @@ export default function Index({ block, index }) {
         <Text strong style={{ margin: 5 }}>
           Hash:
         </Text>
-        <Text style={{ color: "green", borderColor: "green" }} keyboard>
-          {block.hash}
-        </Text>
+        {edit ? (
+          <Input
+            style={{ color: "black", borderColor: "red" }}
+            value={hash}
+            onChange={(e) => {
+              block.hash = e.target.value;
+              setHash(e.target.value);
+            }}
+          />
+        ) : (
+          <Text style={{ color: "green", borderColor: "green" }} keyboard>
+            {block.hash}
+          </Text>
+        )}
       </div>
       <div
         style={{
