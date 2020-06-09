@@ -34,7 +34,7 @@ class Block {
 
   static genesis() {
     return new this(
-      Date.now(),
+      0,
       "----",
       "genesis hash",
       "Welcome to my blockchain",

@@ -3,19 +3,10 @@ import { Button, Modal } from "antd";
 import "antd/dist/antd.css";
 import React, { useState } from "react";
 
-function Peer({
-  index,
-  name,
-  color,
-  connectingPeer,
-  deletePeer,
-  clickPeer,
-  isHideConnect,
-}) {
+function Peer({ peer, colorIcon = "black", onClick, deletePeer }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const handleClick = (index) => {
-    clickPeer(index);
+  const handleClick = (peer) => {
+    onClick(peer);
   };
   const handleDelete = (index) => {
     deletePeer(index);
@@ -32,10 +23,8 @@ function Peer({
   const handleCancel = (e) => {
     setModalVisible(false);
   };
-  const handleConnect = (e) => {
-    isConnected ? setIsConnected(false) : setIsConnected(true);
-  };
-  console.log(connectingPeer);
+  const handleConnect = (e) => {};
+
   return (
     <div
       style={{
@@ -46,38 +35,34 @@ function Peer({
       }}
     >
       <UserOutlined
-        style={{ fontSize: 24, color: color }}
-        onClick={() => handleClick(index)}
+        style={{ fontSize: 24, color: colorIcon }}
+        onClick={() => handleClick(peer)}
       />
-      <h5>Trương Đại Tín {name}</h5>
-      {!isHideConnect ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+      <h5>{peer.name}</h5>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          type="primary"
+          style={{ margin: 3 }}
+          onClick={() => handleConnect()}
         >
-          <Button
-            type="primary"
-            style={{ margin: 3 }}
-            onClick={() => handleConnect()}
-          >
-            {isConnected ? "Disconnect" : "Connect"}
-          </Button>
-          {isConnected ? (
-            <Button
-              type="secondary"
-              style={{ margin: 3 }}
-              onClick={() => showModal()}
-            >
-              View History
-            </Button>
-          ) : null}
-        </div>
-      ) : null}
+          Connect
+        </Button>
+        <Button
+          type="secondary"
+          style={{ margin: 3 }}
+          onClick={() => showModal()}
+        >
+          View History
+        </Button>
+      </div>
       <Modal
-        title={connectingPeer ? connectingPeer.name.toString() : "modal"}
+        title="modal"
         visible={modalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -86,11 +71,7 @@ function Peer({
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal>
-      <CloseSquareOutlined
-        onClick={() => {
-          handleDelete(index);
-        }}
-      />
+      <CloseSquareOutlined onClick={() => {}} />
     </div>
   );
 }

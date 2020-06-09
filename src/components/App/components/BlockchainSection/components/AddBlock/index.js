@@ -1,7 +1,9 @@
+import { Button } from "antd";
+import "antd/dist/antd.css";
 import React, { useState } from "react";
 import "./add_block.css";
 
-export default function Index({ addBlock }) {
+export default function Index({ onClick }) {
   const [text, setText] = useState("");
   return (
     <div className="add-block">
@@ -15,14 +17,15 @@ export default function Index({ addBlock }) {
           }}
         />
       </div>
-      <button
+      <Button
+        type="primary"
         style={{ marginTop: 20 }}
         onClick={() => {
-          addBlock(text);
+          onClick(text);
         }}
       >
         + ADD NEW BLOCK
-      </button>
+      </Button>
     </div>
   );
 }

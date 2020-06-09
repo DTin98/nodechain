@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import Blockchain from "../../blockchain";
+import peers from "./../../peers/instance";
 import "./App.css";
-import BlockchainList from "./components/BlockchainList";
+import BlockchainList from "./components/BlockchainSection";
 import PeersSection from "./components/PeersSection";
 
 function App() {
-  const getBlockchain = (block_chain) => {
-    setBlockChain(block_chain);
+  const handleClickPeer = (peer, index) => {
+    setIndexFocus(index);
+    setBlockChain(peer.blockchain);
   };
-  const _blockchain = new Blockchain();
-  _blockchain.addBlock();
-  const [blockchain, setBlockChain] = useState(_blockchain);
+  const [blockchain, setBlockChain] = useState(peers.getPeer(0).blockchain);
+  const [indexFocus, setIndexFocus] = useState(0);
   return (
     <div className="App">
-      <PeersSection sendBlockchain={getBlockchain} />
+      {indexFocus >= 0 ? (
+        <PeersSection peers={peers} onClickPeer={handleClickPeer} />
+      ) : null}
       <BlockchainList blockchain={blockchain} />
     </div>
   );

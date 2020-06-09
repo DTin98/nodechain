@@ -44,7 +44,7 @@ describe("Block", () => {
   it("lower the difficulty for a slower generated block", () => {
     // 300000 will make it insanely slow
     expect(Block.adjustDifficulty(block, block.timestamp + 300000)).toEqual(
-      block.difficulty - 1
+      block.difficulty - 1 < 0 ? 0 : block.difficulty - 1
     );
   });
 
