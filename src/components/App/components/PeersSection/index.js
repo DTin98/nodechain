@@ -23,9 +23,19 @@ export default function Index({
     if (!length) return;
     let color = "red";
     return list_name.map((name, index) => {
-      indexFocus === index ? (color = "red") : (color = "black");
+      let hideConnect = false;
+      let hideHistory = false;
+      if (indexFocus === index) {
+        hideConnect = true;
+        hideHistory = true;
+        color = "red";
+      } else {
+        color = "black";
+      }
       return (
         <Peer
+          hideConnect={hideConnect}
+          hideHistory={hideHistory}
           name={name}
           colorIcon={color}
           onClick={() => {

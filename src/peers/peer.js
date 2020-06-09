@@ -6,6 +6,11 @@ class Peer {
     this._name = name;
     this._blockchain = new Blockchain();
     this._list_connector = {};
+    this._list_history = [];
+  }
+
+  get listHistory() {
+    return this._list_history;
   }
 
   get name() {

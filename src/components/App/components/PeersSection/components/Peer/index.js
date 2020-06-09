@@ -7,6 +7,8 @@ function Peer({
   name,
   isConnected = false,
   colorIcon = "black",
+  hideConnect = false,
+  hideHistory = false,
   onClick,
   onClickDelete,
   onClickConnect,
@@ -64,20 +66,24 @@ function Peer({
           alignItems: "center",
         }}
       >
-        <Button
-          type="primary"
-          style={{ margin: 3 }}
-          onClick={() => handleConnect()}
-        >
-          {state}
-        </Button>
-        <Button
-          type="secondary"
-          style={{ margin: 3 }}
-          onClick={() => showModal()}
-        >
-          View History
-        </Button>
+        {hideConnect ? null : (
+          <Button
+            type="primary"
+            style={{ margin: 3 }}
+            onClick={() => handleConnect()}
+          >
+            {state}
+          </Button>
+        )}
+        {hideHistory ? null : (
+          <Button
+            type="secondary"
+            style={{ margin: 3 }}
+            onClick={() => showModal()}
+          >
+            View History
+          </Button>
+        )}
       </div>
       <Modal
         title="modal"
