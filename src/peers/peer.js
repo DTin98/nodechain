@@ -1,10 +1,11 @@
 import Blockchain from "../blockchain";
 
 class Peer {
-  constructor(name = "", blockchain, connector) {
+  constructor(name = "", index, blockchain, connector) {
+    this.index = index;
     this._name = name;
     this._blockchain = new Blockchain();
-    this._list_connector = [];
+    this._list_connector = {};
   }
 
   get name() {
@@ -38,25 +39,36 @@ class Peer {
 
   /**
    * @param {Number} index
-   * @returns {Peer}
+   * @returns {Boolean}
    */
   getConnector(index) {
-    return this.connector[index];
+    return this.listConnector[index];
   }
 
   /**
    * @param {Peer} peer
    */
-  addConnector(peer) {
-    this.connector.push(peer);
-    return peer;
+  addConnector(index) {
+    this.listConnector[index] = true;
+    return index;
   }
 
   /**
    * @param {Peer} peer
    */
   deleteConnector(index) {
-    return this.connector.splice(index, 1);
+    return (this.listConnector[index] = false);
+  }
+
+  /**
+   * @param {Peer} peer
+   */
+  getBlockchainFrom(peer) {
+    const lastedBlock = peer.blockchain.chain[peer.blockchain.chain.length - 1];
+    //Received lasted block
+    if (this.blockchain.isValidBlock(lastedBlock))
+      this.blockchain.chain.push(lastedBlock);
+    else this.blockchain.replaceChain(peer.blockchain.chain);
   }
 }
 

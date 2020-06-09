@@ -11,6 +11,13 @@ class Blockchain {
     return block;
   }
 
+  isValidBlock(block) {
+    const lastBlock = this.chain[this.chain.length - 1];
+    if (block.hash !== Block.blockHash(block)) return false;
+    if (block.lastHash !== lastBlock.hash) return false;
+    return true;
+  }
+
   isValidChain(chain) {
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
       console.log("fail genesis");

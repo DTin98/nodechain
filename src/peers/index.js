@@ -60,7 +60,7 @@ class Peers {
       "Krilin",
       "Conan",
     ];
-    const peer = new Peer(list_name[this.length] || "");
+    const peer = new Peer(list_name[this.length] || "", this.list.length);
     return this.addPeer(peer);
   }
 
@@ -68,6 +68,21 @@ class Peers {
     if (arguments.length === 1) return this.addPeerOneParam(arguments[0]);
     else if (arguments.length === 0) return this.addPeerNoParam();
     else throw new Error("Number of params is so many");
+  }
+
+  deletePeer(index) {
+    const peer = this.list[index];
+    this.list.splice(index, 1);
+    return peer;
+  }
+
+  getListName() {
+    const list_name = [];
+    // eslint-disable-next-line array-callback-return
+    this.list.map((peer) => {
+      list_name.push(peer.name);
+    });
+    return list_name;
   }
 }
 

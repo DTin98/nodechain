@@ -3,13 +3,23 @@ import { Button, Modal } from "antd";
 import "antd/dist/antd.css";
 import React, { useState } from "react";
 
-function Peer({ peer, colorIcon = "black", onClick, deletePeer }) {
+function Peer({
+  name,
+  isConnected = false,
+  colorIcon = "black",
+  onClick,
+  onClickDelete,
+  onClickConnect,
+  onClickDisconnect,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
-  const handleClick = (peer) => {
-    onClick(peer);
+  const [state, setState] = useState(isConnected ? "Disconnect" : "Connect");
+
+  const handleClick = () => {
+    onClick();
   };
-  const handleDelete = (index) => {
-    deletePeer(index);
+  const handleClickDelete = () => {
+    onClickDelete();
   };
 
   const showModal = () => {
@@ -23,7 +33,15 @@ function Peer({ peer, colorIcon = "black", onClick, deletePeer }) {
   const handleCancel = (e) => {
     setModalVisible(false);
   };
-  const handleConnect = (e) => {};
+  const handleConnect = () => {
+    if (state === "Connect") {
+      onClickConnect();
+      setState("Disconnect");
+    } else {
+      onClickDisconnect();
+      setState("Connect");
+    }
+  };
 
   return (
     <div
@@ -36,9 +54,9 @@ function Peer({ peer, colorIcon = "black", onClick, deletePeer }) {
     >
       <UserOutlined
         style={{ fontSize: 24, color: colorIcon }}
-        onClick={() => handleClick(peer)}
+        onClick={() => handleClick()}
       />
-      <h5>{peer.name}</h5>
+      <h5>{name}</h5>
       <div
         style={{
           display: "flex",
@@ -51,7 +69,7 @@ function Peer({ peer, colorIcon = "black", onClick, deletePeer }) {
           style={{ margin: 3 }}
           onClick={() => handleConnect()}
         >
-          Connect
+          {state}
         </Button>
         <Button
           type="secondary"
@@ -71,7 +89,7 @@ function Peer({ peer, colorIcon = "black", onClick, deletePeer }) {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal>
-      <CloseSquareOutlined onClick={() => {}} />
+      <CloseSquareOutlined onClick={() => handleClickDelete()} />
     </div>
   );
 }
