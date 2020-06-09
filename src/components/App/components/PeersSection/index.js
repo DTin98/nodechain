@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Peer from "./components/Peer";
 
 export default function Index({
-  list_name,
+  listName,
   onClickPeer,
   onClickAddPeer,
   onClickDeletePeer,
@@ -12,17 +12,17 @@ export default function Index({
   onClickDisconnectPeer,
 }) {
   const [indexFocus, setIndexFocus] = useState(0);
-  const [length, setLength] = useState(list_name.length);
+  const [length, setLength] = useState(listName.length);
 
   const handleClickAddPeer = () => {
     onClickAddPeer();
-    setLength(list_name.length + 1);
+    setLength(listName.length + 1);
   };
 
   const renderPeer = () => {
     if (!length) return;
     let color = "red";
-    return list_name.map((name, index) => {
+    return listName.map((name, index) => {
       let hideConnect = false;
       let hideHistory = false;
       if (indexFocus === index) {
@@ -44,7 +44,7 @@ export default function Index({
           }}
           onClickDelete={() => {
             onClickDeletePeer(index);
-            setLength(list_name.length);
+            setLength(listName.length);
           }}
           onClickConnect={() => {
             onClickConnectPeer(indexFocus, index);

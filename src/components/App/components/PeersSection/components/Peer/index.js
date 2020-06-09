@@ -66,8 +66,17 @@ function Peer({
           alignItems: "center",
         }}
       >
-        {hideConnect ? null : (
+        {hideConnect ? null : state === "Connect" ? (
           <Button
+            type="primary"
+            style={{ margin: 3 }}
+            onClick={() => handleConnect()}
+          >
+            {state}
+          </Button>
+        ) : (
+          <Button
+            danger
             type="primary"
             style={{ margin: 3 }}
             onClick={() => handleConnect()}

@@ -6,7 +6,7 @@ import PeersSection from "./components/PeersSection";
 
 function App() {
   const [index, setIndex] = useState(0);
-  const [list_name, setListName] = useState(peers.getListName());
+  const [listName, setListName] = useState(peers.getListName());
   const [ReRender, setReRender] = useState(false);
 
   const handleClickPeer = (index) => {
@@ -46,7 +46,7 @@ function App() {
     <div className="App">
       {
         <PeersSection
-          list_name={list_name}
+          listName={listName}
           onClickPeer={handleClickPeer}
           onClickDeletePeer={handleClickDeletePeer}
           onClickAddPeer={handleClickAddPeer}
