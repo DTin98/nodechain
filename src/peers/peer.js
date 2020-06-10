@@ -46,7 +46,7 @@ class Peer {
    * @param {Number} index
    * @returns {Boolean}
    */
-  getConnector(index) {
+  isConnected(index) {
     return this.listConnector[index];
   }
 

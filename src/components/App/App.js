@@ -5,12 +5,12 @@ import BlockchainSection from "./components/BlockchainSection";
 import PeersSection from "./components/PeersSection";
 
 function App() {
-  const [index, setIndex] = useState(0);
+  const [indexFocus, setIndexFocus] = useState(0);
   const [listName, setListName] = useState(peers.getListName());
   const [ReRender, setReRender] = useState(false);
 
   const handleClickPeer = (index) => {
-    setIndex(index);
+    setIndexFocus(index);
   };
 
   const handleClickDeletePeer = (index) => {
@@ -39,7 +39,7 @@ function App() {
   };
 
   const handleClickAddBlock = (data) => {
-    peers.getPeer(index).blockchain.addBlock(data);
+    peers.getPeer(indexFocus).blockchain.addBlock(data);
   };
 
   return (
@@ -56,7 +56,7 @@ function App() {
       }
       <BlockchainSection
         isReRender={ReRender}
-        blockchain={peers.getPeer(index).blockchain.chain}
+        blockchain={peers.getPeer(indexFocus).blockchain.chain}
         onClick={handleClickAddBlock}
       />
     </div>

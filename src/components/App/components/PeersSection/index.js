@@ -12,39 +12,27 @@ export default function Index({
   onClickDisconnectPeer,
 }) {
   const [indexFocus, setIndexFocus] = useState(0);
-  const [length, setLength] = useState(listName.length);
 
   const handleClickAddPeer = () => {
     onClickAddPeer();
-    setLength(listName.length + 1);
   };
 
   const renderPeer = () => {
-    if (!length) return;
-    let color = null;
     return listName.map((name, index) => {
-      let hideConnect = false;
-      let hideHistory = false;
-      if (indexFocus === index) {
-        hideConnect = true;
-        hideHistory = true;
-        color = "blue";
-      } else {
-        color = "black";
-      }
       return (
         <Peer
-          hideConnect={hideConnect}
-          hideHistory={hideHistory}
+          key={name}
+          isConnected={false}
+          hideConnect={indexFocus === index ? true : false}
+          hideHistory={indexFocus === index ? true : false}
           name={name}
-          colorIcon={color}
+          colorIcon={indexFocus === index ? "blue" : "black"}
           onClick={() => {
             onClickPeer(index);
             setIndexFocus(index);
           }}
           onClickDelete={() => {
             onClickDeletePeer(index);
-            setLength(listName.length);
           }}
           onClickConnect={() => {
             onClickConnectPeer(indexFocus, index);
@@ -56,7 +44,6 @@ export default function Index({
       );
     });
   };
-
   return (
     <div
       style={{
